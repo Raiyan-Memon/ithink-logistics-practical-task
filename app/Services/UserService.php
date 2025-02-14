@@ -23,7 +23,7 @@ class UserService
     {
         $cache = $this->userCacheName;
         return Cache::rememberForever("$cache$userId", function () use ($userId) {
-            return User::find($userId);
+            return User::findorFail($userId);
         });
     }
 

@@ -13,4 +13,14 @@ class User extends Authenticatable implements MustVerifyEmail
     use \Znck\Eloquent\Traits\BelongsToThrough;
 
     protected $guarded = [];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 }
