@@ -28,8 +28,8 @@
         <x-form id="add-users" method="POST" class="" :route="route('admin.users.store')">
             <div class="col-md-12 col-12 ">
                 <x-input name="name" />
-                <x-input name="phone" type="number" />
                 <x-input type="email" name="email" />
+                <x-input type="password" name="password" />
             </div>
         </x-form>
     </x-side-modal>
@@ -37,7 +37,6 @@
         <x-form id="edit-users" method="POST" class="" :route="route('admin.users.update')">
             <div class="col-md-12 col-12 ">
                 <x-input name="name" />
-                <x-input name="phone" type="number" />
                 <x-input type="email" name="email" />
                 <x-input name="id" type="hidden" />
             </div>
@@ -54,10 +53,8 @@
         });
 
         function setValue(data, modal) {
-            console.log(data);
             $(modal + ' #id').val(data.id);
             $(modal + ' #name').val(data.name);
-            $(modal + ' #phone').val(data.phone);
             $(modal + ' #email').val(data.email);
             $(modal).modal('show');
         }

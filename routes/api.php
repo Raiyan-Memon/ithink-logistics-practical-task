@@ -8,7 +8,7 @@ Route::prefix('v1')->group(function () {
     Route::prefix('user')->group(function () {
         Route::controller(AuthController::class)->prefix('auth')->group(function () {
             Route::post('register', 'register');
-            Route::post('login', 'loginOne');
+            Route::post('login', 'login');
             Route::post('logout', 'logout');
         });
 

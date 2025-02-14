@@ -1,10 +1,10 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -14,53 +14,46 @@ class UserController extends Controller
     }
     public function store(Request $request)
     {
-        $data = new User;
-        $data->name = $request->name;
-        $data->phone = $request->phone;
-        $data->email = $request->email;
+        $request->validate([
+            'name'     => 'required',
+            'email'    => 'required|email|unique:users,email',
+            'password' => 'required',
+        ]);
+        $data           = new User;
+        $data->name     = $request->name;
+        $data->email    = $request->email;
+        $data->password = Hash::make($request->password);
         $data->save();
 
         return response([
-            'header' => 'Added!',
-            'message' => 'users added successfully',
-            'table' => 'users-table',
+            'header'  => 'Added!',
+            'message' => 'Users added successfully',
+            'table'   => 'users-table',
         ]);
 
     }
     public function edit($id)
     {
         $data = User::findOrFail($id);
-        // dd($data);
         return response($data);
     }
 
     public function update(Request $request)
     {
-        $data = User::findOrFail($request->id);
-        $data->name = $request->name;
-        $data->phone = $request->phone;
+        $request->validate([
+            'name'  => 'required',
+            'email' => 'required|email',
+            'id'    => 'required|exists:users,id',
+        ]);
+        $data        = User::findOrFail($request->id);
+        $data->name  = $request->name;
         $data->email = $request->email;
         $data->save();
 
         return response([
-            'header' => 'Updated!',
-            'message' => 'users updated successfully',
-            'table' => 'users-table',
-        ]);
-    }
-
-    public function status(Request $request)
-    {
-        $request->validate([
-            'id' => 'required|numeric|exists:users,id',
-            'status' => 'required|in:active,blocked',
-        ]);
-
-        User::findOrFail($request->id)->update(['status' => $request->status]);
-
-        return response([
-            'message' => 'users status updated successfully',
-            'table' => 'users-table',
+            'header'  => 'Updated!',
+            'message' => 'Users updated successfully',
+            'table'   => 'users-table',
         ]);
     }
 
@@ -68,9 +61,9 @@ class UserController extends Controller
     {
         User::findOrFail($id)->delete();
         return response([
-            'header' => 'Deleted!',
+            'header'  => 'Deleted!',
             'message' => 'users deleted successfully',
-            'table' => 'users-table',
+            'table'   => 'users-table',
         ]);
     }
 }
