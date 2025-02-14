@@ -22,7 +22,11 @@ class UserController extends Controller
 
     public function store(CreateRequest $request)
     {
-        $this->userService->create($request->all());
+        try {
+            $this->userService->create($request->all());
+        } catch (\Throwable $th) {
+            return $this->userService->errorResponse("Failed To Create User", $th->getMessage());
+        }
         return response([
             'header'  => 'Added!',
             'message' => 'Users added successfully',
@@ -32,13 +36,21 @@ class UserController extends Controller
     }
     public function edit($id)
     {
-        $userDetails = $this->userService->get($id);
+        try {
+            $userDetails = $this->userService->get($id);
+        } catch (\Throwable $th) {
+            return $this->userService->errorResponse("Failed To Get User", $th->getMessage());
+        }
         return response($userDetails);
     }
 
     public function update(UpdateRequest $request)
     {
-        $this->userService->update($request->all());
+        try {
+            $this->userService->update($request->all());
+        } catch (\Throwable $th) {
+            return $this->userService->errorResponse("Failed To Update User", $th->getMessage());
+        }
         return response([
             'header'  => 'Updated!',
             'message' => 'Users updated successfully',
@@ -48,7 +60,11 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        $this->userService->delete($id);
+        try {
+            $this->userService->delete($id);
+        } catch (\Throwable $th) {
+            return $this->userService->errorResponse("Failed To Delete User", $th->getMessage());
+        }
         return response([
             'header'  => 'Deleted!',
             'message' => 'users deleted successfully',

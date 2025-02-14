@@ -4,6 +4,7 @@ namespace App\Services;
 use App\Models\User;
 use Cache;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class UserService
 {
@@ -43,5 +44,15 @@ class UserService
     {
         $cache = $this->userCacheName;
         Cache::forget("$cache$userId");
+    }
+
+    public function errorResponse($message, $e)
+    {
+        Log::info("user service error: $message - $e");
+        return response([
+            'success' => false,
+            'message' => $message,
+            'error'   => $e,
+        ], 500);
     }
 }
