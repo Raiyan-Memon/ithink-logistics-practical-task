@@ -7,7 +7,7 @@
     $edit = '';
     if (!empty($edit_route)) {
         $data = ['edit' => $edit_route, 'modal' => $modal, 'callback' => $edit_callback ?? 'noCallback'];
-        $class = 'btn-icon btn-icon rounded-circle btn-warning';
+        $class = 'btn-icon btn-icon rounded-circle btn-warning edit-button';
         $icon = '<svg aria-hidden="true" focusable="false" data-prefix="fa-duotone" data-icon="pen-nib" class="svg-inline--fa fa-pen-nib fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
     <defs>
         <style>

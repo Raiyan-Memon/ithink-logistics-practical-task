@@ -689,7 +689,7 @@ function noCallback() {
         });
     });
     $(document).on('click', '[data-edit]', function () {
-        const route = $(this).data('edit');
+        let route = $(this).attr('data-edit');
         const modal = $(this).data('modal');
         const callback = $(this).data('callback');
 

@@ -24,7 +24,7 @@
             </div>
         </div>
     </section>
-    <x-side-modal title="Add Employee" id="add-blade-modal">
+    <x-side-modal title="Add User" id="add-blade-modal">
         <x-form id="add-users" method="POST" class="" :route="route('admin.users.store')">
             <div class="col-md-12 col-12 ">
                 <x-input name="name" />
@@ -33,7 +33,7 @@
             </div>
         </x-form>
     </x-side-modal>
-    <x-side-modal title="Update Employee" id="edit-user-modal">
+    <x-side-modal title="Update User" id="edit-user-modal">
         <x-form id="edit-users" method="POST" class="" :route="route('admin.users.update')">
             <div class="col-md-12 col-12 ">
                 <x-input name="name" />
