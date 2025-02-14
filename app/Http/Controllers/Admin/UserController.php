@@ -2,29 +2,26 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\User\CreateRequest;
+use App\Http\Requests\User\UpdateRequest;
+use App\Services\UserService;
 
 class UserController extends Controller
 {
+    public $userService;
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     public function index()
     {
         return view('content.tables.users');
     }
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name'     => 'required',
-            'email'    => 'required|email|unique:users,email',
-            'password' => 'required',
-        ]);
-        $data           = new User;
-        $data->name     = $request->name;
-        $data->email    = $request->email;
-        $data->password = Hash::make($request->password);
-        $data->save();
 
+    public function store(CreateRequest $request)
+    {
+        $this->userService->create($request->all());
         return response([
             'header'  => 'Added!',
             'message' => 'Users added successfully',
@@ -34,22 +31,13 @@ class UserController extends Controller
     }
     public function edit($id)
     {
-        $data = User::findOrFail($id);
-        return response($data);
+        $userDetails = $this->userService->get($id);
+        return response($userDetails);
     }
 
-    public function update(Request $request)
+    public function update(UpdateRequest $request)
     {
-        $request->validate([
-            'name'  => 'required',
-            'email' => 'required|email',
-            'id'    => 'required|exists:users,id',
-        ]);
-        $data        = User::findOrFail($request->id);
-        $data->name  = $request->name;
-        $data->email = $request->email;
-        $data->save();
-
+        $this->userService->update($request->all());
         return response([
             'header'  => 'Updated!',
             'message' => 'Users updated successfully',
@@ -59,7 +47,7 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        User::findOrFail($id)->delete();
+        $this->userService->delete($id);
         return response([
             'header'  => 'Deleted!',
             'message' => 'users deleted successfully',
