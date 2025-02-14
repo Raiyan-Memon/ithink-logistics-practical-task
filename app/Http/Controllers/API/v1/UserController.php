@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\CreateRequest;
 use App\Services\UserService;
 
 class UserController extends Controller
@@ -22,5 +23,17 @@ class UserController extends Controller
             'success' => true,
             'data'    => $user,
         ]);
+    }
+    public function store(CreateRequest $createUser)
+    {
+        try {
+            $this->userService->create($createUser->all());
+        } catch (\Throwable $th) {
+            return $this->userService->errorResponse("Failed To Create User", $th->getMessage());
+        }
+        return response([
+            'success' => true,
+            'message' => "User Created",
+        ], 201);
     }
 }
