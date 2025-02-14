@@ -62,18 +62,6 @@
             <li class="nav-item d-lg-block"><a onclick="setTheme(this)" class="nav-link  nav-link-style"><i
                         class="ficon" data-feather="{{ $configData['theme'] === 'dark' ? 'sun' : 'moon' }}"></i></a>
             </li>
-            <li class="nav-item nav-search"><a class="nav-link nav-link-search"> <span
-                        class="search-bar-text ml-1">Press <kbd class="text-success font-weight-bold">Ctrl + /</kbd> to
-                        search</span></a>
-
-                <div class="search-input">
-                    <div class="search-input-icon"><i data-feather="search"></i></div>
-                    <input class="form-control input" type="text" placeholder="Search for pages" tabindex="-1"
-                        data-search="search">
-                    <div class="search-input-close"><i data-feather="x"></i></div>
-                    <ul class="search-list search-list-main"></ul>
-                </div>
-            </li>
         </ul>
     </div>
     <ul class="nav navbar-nav align-items-center ml-auto">
@@ -83,11 +71,10 @@
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div class="user-nav d-sm-flex d-none">
                     <span class="user-name font-weight-bolder">{{ auth('admin')->user()->name }}</span>
-                    <span class="user-status">Admin</span>
                 </div>
                 <span class="avatar">
-                    <img class="round" src="{{ asset('images/logo/logo.png') }}" alt="avatar"
-                        height="40" width="40">
+                    <img class="round" src="{{ asset('images/logo/logo.png') }}" alt="avatar" height="40"
+                        width="40">
                     <span class="avatar-status-online"></span>
                 </span>
             </a>

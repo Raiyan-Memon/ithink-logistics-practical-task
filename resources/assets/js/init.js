@@ -461,7 +461,7 @@ function sendReport(error) {
         error: function (xhr, status, response) {
             unblockUI();
             if (xhr.status == 0 || xhr.status == 404) {
-                snb('error', 'Contact Appdid', 'Change the Domain url in the init.js File.');
+                snb('error', 'Contact', 'Change the Domain url in the init.js File.');
             } else {
                 snb('error', 'Error',
                     'There was an error while sending report. please contact the development team.');
