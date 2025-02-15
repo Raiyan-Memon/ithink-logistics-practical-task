@@ -672,13 +672,6 @@ function noCallback() {
                                 confirmButton: 'btn btn-success'
                             }
                         });
-
-                        // if ((typeof window[call]) == 'function') {
-                        //     eval(call)(THIS);
-                        // } 
-                        // else {
-                        //     snb('error', 'Callback undefined', 'No callback function defined for Delete action.');
-                        // }
                         $('.refresh-btn').click();
                         feather.replace();
                     }

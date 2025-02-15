@@ -27,9 +27,9 @@ class UserService
         });
     }
 
-    public function update($userData)
+    public function update($userId = null, $userData)
     {
-        $userId = $userData['id'];
+        $userId = $userId ?? $userData['id'];
         $this->get($userId)->update(['name' => $userData['name'], 'email' => $userData['email']]);
         $this->clearUserCache($userId);
     }
@@ -40,6 +40,13 @@ class UserService
         $this->clearUserCache($id);
     }
 
+    public function allUser()
+    {
+        return Cache::remember("all_users", 60, function () {
+            return User::select('id', 'name', 'email')->get();
+        });
+    }
+
     private function clearUserCache($userId)
     {
         $cache = $this->userCacheName;
@@ -48,7 +55,7 @@ class UserService
 
     public function errorResponse($message, $e)
     {
-        Log::info("user service error: $message - $e");
+        Log::error("user service error: $message - $e");
         return response([
             'success' => false,
             'message' => $message,

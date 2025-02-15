@@ -10,8 +10,8 @@
   "require": {
     "php": "^7.3|^8.0",
     "barryvdh/laravel-dompdf": "^2.2",
-    "enlightn/enlightn": "^1.25",
     "berkayk/onesignal-laravel": "^1.0",
+    "enlightn/enlightn": "^1.25",
     "fruitcake/laravel-cors": "^2.0",
     "guzzlehttp/guzzle": "^7.0.1",
     "hammerstone/fast-paginate": "^0.1.7",
@@ -19,6 +19,7 @@
     "kreait/laravel-firebase": "^4.1",
     "laravel/framework": "^9.0",
     "laravel/sanctum": "^2.15",
+    "laravel/telescope": "^5.5",
     "laravel/tinker": "^2.6",
     "laravel/ui": "^3.0",
     "laravolt/avatar": "^4.1",
