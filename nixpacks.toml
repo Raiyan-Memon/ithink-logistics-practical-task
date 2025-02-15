@@ -1,5 +1,7 @@
 [phases.setup]
-nixPkgs = ["...", "python311Packages.supervisor"]
+    nixPkgs = ["...", "python311Packages.supervisor"]
+    cmds = ['PHP_INI_PATH=$(php --ini | grep "Additional .ini files parsed:" | cut -d: -f2 | tr -d " "); echo "PHP_INI_PATH is $PHP_INI_PATH"; echo "upload_max_filesize=512M" >> $PHP_INI_PATH; echo "memory_limit=-1" >> $PHP_INI_PATH; echo "post_max_size=512M" >> $PHP_INI_PATH; echo "Content of php.ini below:"; cat "$PHP_INI_PATH"']
+
 
 [phases.build]
 cmds = [
@@ -143,17 +145,15 @@ http {
 
         charset utf-8;
 
-        $if(IS_LARAVEL) (
-            location / {
-                try_files $uri $uri/ /index.php?$query_string;
-            }
-        ) else ()
-
         $if(NIXPACKS_PHP_FALLBACK_PATH) (
+            location / {
+                try_files $uri $uri/ ${NIXPACKS_PHP_FALLBACK_PATH}?$query_string;
+            }
+        ) else (
           location / {
-            try_files $uri $uri/ ${NIXPACKS_PHP_FALLBACK_PATH}?$query_string;
-          }
-        ) else ()
+                try_files $uri $uri/ /index.php?$query_string;
+           }
+        )
 
         location = /favicon.ico { access_log off; log_not_found off; }
         location = /robots.txt  { access_log off; log_not_found off; }
@@ -168,7 +168,7 @@ http {
             include $!{nginx}/conf/fastcgi_params;
             include $!{nginx}/conf/fastcgi.conf;
 
-            fastcgi_param PHP_VALUE "upload_max_filesize=30M \n post_max_size=35M";
+            fastcgi_param PHP_VALUE "upload_max_filesize=30M \n post_max_size=35M \n memory_limit=-1";
         }
 
         location ~ /\.(?!well-known).* {
