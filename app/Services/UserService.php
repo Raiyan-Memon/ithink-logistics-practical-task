@@ -27,7 +27,7 @@ class UserService
         });
     }
 
-    public function update($userId = null, $userData)
+    public function update($userData, $userId = null)
     {
         $userId = $userId ?? $userData['id'];
         $this->get($userId)->update(['name' => $userData['name'], 'email' => $userData['email']]);

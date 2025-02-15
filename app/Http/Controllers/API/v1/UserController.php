@@ -54,7 +54,7 @@ class UserController extends Controller
     public function update($id, UpdateRequest $updateRequest)
     {
         try {
-            $this->userService->update($id, $updateRequest->all());
+            $this->userService->update($updateRequest->all(), $id);
         } catch (\Throwable $th) {
             return $this->userService->errorResponse("API - Failed To Update User", $th->getMessage());
         }
