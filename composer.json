@@ -29,7 +29,8 @@
     "rappasoft/laravel-livewire-tables": "^2.11",
     "rezaamini-ir/migrator": "^1.5",
     "staudenmeir/belongs-to-through": "^2.5",
-    "stevebauman/location": "^7.0"
+    "stevebauman/location": "^7.0",
+    "thibaud-dauce/laravel-mattermost-logger": "^1.8"
   },
   "require-dev": {
     "barryvdh/laravel-ide-helper": "^2.10",
