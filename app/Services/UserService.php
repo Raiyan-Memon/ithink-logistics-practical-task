@@ -60,6 +60,6 @@ class UserService
             'success' => false,
             'message' => $message,
             'error'   => $e,
-        ], 404);
+        ], 500);
     }
 }
